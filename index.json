@@ -1,5 +1,41 @@
 {
   "format": 1,
-  "generated_at": "2026-10-21T16:11:25.624815+00:00",
-  "entries": {}
+  "generated_at": "2026-10-21T16:29:41.329548+00:00",
+  "entries": {
+    "candidate-2b82d9717ff87411": {
+      "effective_status": "candidate",
+      "confidence": 0.1,
+      "successful_confirmations": 0,
+      "failed_confirmations": 0,
+      "last_confirmed": null
+    },
+    "candidate-9c059edfb0294196": {
+      "effective_status": "candidate",
+      "confidence": 0.1,
+      "successful_confirmations": 0,
+      "failed_confirmations": 0,
+      "last_confirmed": null
+    },
+    "candidate-b2b8978e3f1fce98": {
+      "effective_status": "candidate",
+      "confidence": 0.1,
+      "successful_confirmations": 0,
+      "failed_confirmations": 0,
+      "last_confirmed": null
+    },
+    "candidate-b53e941f861786d5": {
+      "effective_status": "candidate",
+      "confidence": 0.1,
+      "successful_confirmations": 0,
+      "failed_confirmations": 0,
+      "last_confirmed": null
+    },
+    "candidate-bb18d1e3f000abcf": {
+      "effective_status": "candidate",
+      "confidence": 0.1,
+      "successful_confirmations": 0,
+      "failed_confirmations": 0,
+      "last_confirmed": null
+    }
+  }
 }
