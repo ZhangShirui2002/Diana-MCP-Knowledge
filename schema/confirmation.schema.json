@@ -3,11 +3,12 @@
   "$id": "https://github.com/ZhangShirui2002/Diana-MCP-Knowledge/schema/confirmation.schema.json",
   "title": "DIANA-MCP community reproduction report",
   "type": "object",
-  "required": ["format", "entry_id", "outcome", "diana_version", "environment_fingerprint", "evidence_summary", "contributor"],
+  "required": ["format", "entry_id", "outcome", "date", "diana_version", "environment_fingerprint", "evidence_summary", "contributor"],
   "properties": {
     "format": {"const": 1},
     "entry_id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,79}$"},
     "outcome": {"enum": ["success", "failure"]},
+    "date": {"type": "string", "format": "date"},
     "diana_version": {"type": "string", "maxLength": 40},
     "environment_fingerprint": {"type": "string", "pattern": "^sha256:[a-f0-9]{16,64}$"},
     "evidence_summary": {"type": "string", "minLength": 10, "maxLength": 2000},

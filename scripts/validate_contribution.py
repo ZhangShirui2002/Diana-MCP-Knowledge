@@ -135,12 +135,14 @@ def validate_confirmation(path: str, data: bytes, author: str, candidate_ids: se
         item = json.loads(data)
     except ValueError as exc:
         raise Rejected("confirmation must be valid JSON") from exc
-    keys = {"format", "entry_id", "outcome", "diana_version", "environment_fingerprint",
+    keys = {"format", "entry_id", "outcome", "date", "diana_version", "environment_fingerprint",
             "evidence_summary", "contributor"}
     if set(item) != keys:
         raise Rejected(f"confirmation keys must be exactly {sorted(keys)}")
     if item["format"] != 1 or item["outcome"] not in ("success", "failure"):
         raise Rejected("invalid confirmation format or outcome")
+    if not re.fullmatch(r"20\d\d-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])", str(item["date"])):
+        raise Rejected("date must use YYYY-MM-DD")
     if item["contributor"].lower() != author.lower():
         raise Rejected("confirmation contributor must equal the pull-request author")
     if item["entry_id"] not in candidate_ids:
