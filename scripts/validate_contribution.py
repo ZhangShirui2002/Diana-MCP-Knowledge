@@ -60,6 +60,14 @@ def request_json(url: str, token: str, method: str = "GET", body: dict | None = 
         raise Rejected(f"GitHub API {exc.code}: {detail}") from exc
 
 
+def decode_github_content(content: str) -> bytes:
+    """Decode GitHub Contents API payloads, whose base64 is line-wrapped."""
+    try:
+        return base64.b64decode("".join(content.split()), validate=True)
+    except ValueError as exc:
+        raise Rejected("GitHub returned invalid base64 file content") from exc
+
+
 def parse_front_matter(text: str) -> dict[str, str]:
     lines = text.splitlines()
     if not lines or lines[0].strip() != "---":
@@ -189,7 +197,7 @@ def pull_request_files(repository: str, number: int, token: str) -> tuple[dict, 
         content = request_json(f"{api}/contents/{encoded}?ref={pr['head']['sha']}", token)
         if content.get("type") != "file" or content.get("encoding") != "base64":
             raise Rejected(f"not a regular base64 file: {path}")
-        data = base64.b64decode(content["content"], validate=True)
+        data = decode_github_content(content["content"])
         if len(data) > MAX_FILE:
             raise Rejected(f"file exceeds {MAX_FILE} bytes: {path}")
         total_bytes += len(data)
