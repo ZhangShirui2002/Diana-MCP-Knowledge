@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/ZhangShirui2002/Diana-MCP-Knowledge/schema/experience.schema.json",
+  "title": "Normalized DIANA-MCP community experience",
+  "type": "object",
+  "required": ["id", "title", "type", "status", "community_status", "license", "requires_human_review"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]{2,79}$"},
+    "title": {"type": "string", "minLength": 3, "maxLength": 200},
+    "type": {"enum": ["error-fix", "modeling-pitfall", "api-usage", "convergence", "parameter", "result-interpretation", "workflow"]},
+    "status": {"const": "draft"},
+    "community_status": {"const": "candidate"},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 0.2},
+    "license": {"const": "Apache-2.0"},
+    "requires_human_review": {"const": true}
+  },
+  "additionalProperties": true
+}

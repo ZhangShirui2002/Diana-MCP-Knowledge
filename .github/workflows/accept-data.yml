@@ -1,0 +1,36 @@
+name: Validate and accept data-only contributions
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "experiences/candidate/*.md"
+      - "confirmations/*.json"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: community-pr-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validate-and-merge:
+    runs-on: ubuntu-latest
+    steps:
+      # This exact checkout action revision is pinned. pull_request_target uses the trusted base workflow;
+      # explicitly checking out base SHA prevents untrusted PR scripts from being executed.
+      - name: Checkout trusted base only
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          persist-credentials: false
+      - name: Validate proposed files through the GitHub API and merge data-only PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: >-
+          python scripts/validate_contribution.py
+          --repository "${{ github.repository }}"
+          --pull-request "${{ github.event.pull_request.number }}"
+          --merge

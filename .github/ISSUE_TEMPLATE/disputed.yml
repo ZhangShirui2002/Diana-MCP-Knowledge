@@ -1,0 +1,24 @@
+name: Report a conflicting reproduction
+description: Start with a public, non-sensitive conflict report; use a confirmation PR for structured evidence.
+title: "[Disputed] "
+labels: [disputed]
+body:
+  - type: input
+    id: entry
+    attributes:
+      label: Entry id
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: DIANA version
+    validations:
+      required: true
+  - type: textarea
+    id: difference
+    attributes:
+      label: Public, redacted difference
+      description: Do not paste models, logs, paths, customer data, screenshots, credentials, or manual text.
+    validations:
+      required: true
